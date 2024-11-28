@@ -1,0 +1,179 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e7e7f9;
+    overflow-x: hidden;
+    /* overflow-y: hidden; */
+  }
+  
+  /* Add this to your styles.css */
+  
+  .header .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #282c34; /* Add a background color if needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+  }
+  
+  .intro {
+    position: fixed;
+    top: 60px; /* Adjust based on the height of your navbar */
+    width: 100%;
+    z-index: 999;
+    background-color: white; /* Add a background color if needed */
+    padding: 20px 0; /* Adjust padding as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+  }
+  
+  /* Add margin-top to the main content to avoid overlap */
+  main {
+    margin-top: 120px; /* Adjust based on the combined height of the navbar and intro */
+  }
+  
+  
+  .header {
+    background-color: #282c34;
+    color: white;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .logo h1 {
+    margin: 0;
+    font-size: 1.5em;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-links li {
+    display: inline;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: #007bff;
+  }
+  
+  .auth-links {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .auth-links button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+  }
+  
+  .auth-links button:hover {
+    background-color: #0056b3;
+  }
+  
+  .main {
+    padding: 20px;
+  }
+.hidden {
+    display: none;
+  }
+  
+  .task-detail {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-detail h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  .task-detail p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+  }
+  
+  .task-detail button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .task-detail button:hover {
+    background-color: #0056b3;
+  }
+  
+  .task-detail pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 4px;
+    overflow: auto;
+  }
+  
+  img{
+    width: 97%;
+    /* height: 30%;
+     */
+    padding: 10px;
+
+  }
+/*   
+.footer {
+    background-color: #282c34;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }
+  
+  .footer svg {
+    display: flex;
+    width: 100%;
+    max-height: 6vh;
+    height: auto;
+  }
+  
+  .footer p {
+    margin: 10px 0 0;
+  } */
+
+  /* tasks.css */
+.solved {
+    background-color: green;
+    color: white;
+  }
+  

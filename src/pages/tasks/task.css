@@ -1,0 +1,388 @@
+/* Progress Bar Styles */
+.user-progress {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .progress-bar {
+    width: 80%;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    width: 0;
+    background-color: #4CAF50;
+    /* Green color for progress */
+    transition: width 0.5s ease-in-out;
+    border-radius: 10px;
+  }
+
+  /* Level Up Animation */
+  @keyframes levelUp {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .level-up {
+    animation: levelUp 1s ease-in-out;
+  }
+
+
+  .social-share {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-width: 400px;
+  }
+
+  .share-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    gap: 8px;
+  }
+
+  .share-btn i {
+    font-size: 18px;
+  }
+
+  .facebook-btn {
+    background-color: #3b5998;
+  }
+
+  .facebook-btn:hover {
+    background-color: #2d4373;
+  }
+
+  .twitter-btn {
+    background-color: #1da1f2;
+  }
+
+  .twitter-btn:hover {
+    background-color: #0d95e8;
+  }
+
+  .linkedin-btn {
+    background-color: #0077b5;
+  }
+
+  .linkedin-btn:hover {
+    background-color: #005582;
+  }
+
+  .whatsapp-btn {
+    background-color: #25d366;
+  }
+
+  .whatsapp-btn:hover {
+    background-color: #1da851;
+  }
+
+
+  .page {
+    display: flex;
+    justify-content: left;
+    background-color: #ffffff;
+  }
+
+  .left {
+    width: 50vw;
+    margin-right: 1vw;
+    margin-top: 1vh;
+    height: 83vh;
+    padding: 18px;
+    border: 1px solid black;
+    border-radius: 3px;
+    overflow: auto;
+  }
+
+  .middle {
+    width: 40vw;
+    margin-right: 1vw;
+    margin-top: 1vh;
+    height: 83vh;
+    padding: 6px;
+    border: 1px solid black;
+    border-radius: 3px;
+  }
+
+  .right {
+    width: 38vw;
+    margin-right: 0vw;
+    margin-top: 1vh;
+    height: 83vh;
+    padding: 6px;
+    border: 1px solid black;
+    border-radius: 3px;
+  }
+
+  .left::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .left::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }
+
+
+  @media (max-width: 768px) {
+    .page {
+      flex-direction: column;
+    }
+
+    .left,
+    .middle,
+    .right {
+      width: 100%;
+      margin: 0;
+      margin-top: 10px;
+    }
+  }
+
+  .file-tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background-color: #f1f1f1;
+  }
+
+  .file-tabs li {
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .file-tabs li.active {
+    background-color: #ddd;
+  }
+
+  .dark-mode {
+    background-color: #121212;
+    color: white;
+  }
+
+  #mode {
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    border: 2px solid #121212;
+    cursor: pointer;
+    margin: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    /* Smooth transition for button */
+  }
+
+  /* Blur only the main content when the popup is active */
+.main-content.blur {
+  filter: blur(5px); /* Blur the content */
+}
+
+.badge-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999;
+}
+
+.badge-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.badge-image {
+  width: 150px;
+  height: 150px;
+}
+
+.blur-background {
+  backdrop-filter: blur(5px); /* Adds the blur to the background */
+}
+
+
+.badge-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999;
+}
+
+.badge-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px; /* Adjusted width */
+  width: 100%;
+}
+
+.badge-image {
+  width: 225px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 50%;/* Space between image and button */
+}
+
+.badge-content h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px; /* Space between heading and image */
+}
+
+.badge-content button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.badge-content button:hover {
+  background-color: #0056b3;
+}
+
+.page {
+  margin-top: 20px;
+  display: flex;
+  justify-content: left;
+  background-color: #ffffff;
+}
+
+.left {
+  width: 35vw;
+  margin-right: 1vw;
+  margin-top: 1vh;
+  height: 83vh;
+  padding: 6px;
+  border: 1px solid black;
+  border-radius: 3px;
+  overflow: auto;
+}
+
+.middle {
+  width: 40vw;
+  margin-right: 1vw;
+  margin-top: 1vh;
+  height: 83vh;
+  padding: 6px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.right {
+  width: 38vw;
+  margin-right: 0vw;
+  margin-top: 1vh;
+  height: 83vh;
+  padding: 6px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.left::-webkit-scrollbar {
+  width: 10px;
+}
+
+.left::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+  }
+
+  .left,
+  .middle,
+  .right {
+    width: 100%;
+    margin: 0;
+    margin-top: 10px;
+  }
+}
+
+.code-editor-container {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.line-numbers {
+  counter-reset: line-number;
+  background-color: #f4f4f4;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 14px;
+  text-align: right;
+  user-select: none;
+  color: #888;
+  border-right: 1px solid #ccc;
+}
+
+.line-numbers::before {
+  content: counter(line-number);
+  counter-increment: line-number;
+}
+
+.line-numbers {
+  padding-right: 10px;
+}
+
+.code-editor {
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  width: 92%;
+  min-height: 300px;
+  padding: 10px;
+  line-height: 1.5;
+  resize: none;
+}
+
+.code-editor:focus {
+  border: none;
+  outline: none;
+}

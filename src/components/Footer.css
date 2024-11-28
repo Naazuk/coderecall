@@ -1,0 +1,89 @@
+html, body {
+  height: 100%; /* Ensure the body takes full height */
+  margin: 0; /* Remove default margin */
+}
+
+#root {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100vh; /* Ensure the container spans the full viewport height */
+}
+
+.content-container {
+  flex: 1; 
+}
+
+.footer {
+  position: static;
+  background-color: black;
+    color: #ffffff;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  .footer-section {
+    flex: 1 1 300px;
+    max-width: 300px;
+  }
+  
+  .footer-section h3,
+  .footer-section h4 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #ffffff;
+  }
+  
+  .footer-section p,
+  .footer-section ul {
+    font-size: 0.9em;
+    color: #d3d3d3;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 8px;
+  }
+  
+  .footer-section ul li a {
+    color: #d3d3d3;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-section ul li a:hover {
+    color: #ffffff;
+  }
+  
+  .social-icons a {
+    color: #d3d3d3;
+    font-size: 1.2em;
+    margin: 0 10px;
+    transition: color 0.3s;
+  }
+  
+  .social-icons a:hover {
+    color: #ffffff;
+  }
+  
+  .footer-bottom {
+    margin-top: 20px;
+    font-size: 0.8em;
+    color: #d3d3d3;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  

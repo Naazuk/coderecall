@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CodeRecall</title>
+    <link rel="stylesheet" href="home1.css">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <style>
+        /* Badge Gallery Modal Styles */
+        #badge-gallery {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10001;
+            overflow: auto;
+        }
+
+        .gallery-content {
+            background: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .badge-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>CodeRecall</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#mock-tests">New Tasks</a></li>
+                <li><a href="#project-showcase">Project Showcase</a></li>
+                <li><a href="#collaboration-forum">Collaboration Forum</a></li>
+                <li><a href="#ai-support">AI Support</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="analytics">
+            <h2>Analytics</h2>
+            <div class="analytics-container">
+                <div id='calendar'></div>
+                <div class="profile-container">
+                    <h2>Welcome, <%= user.username %>
+                    </h2>
+                    <div class="profile-picture">
+                        <img src="/images/default-profile.png" alt="Profile Picture">
+                    </div>
+                    <div class="profile-details">
+                        <p><strong>Email:</strong>
+                            <%= user.email %>
+                        </p>
+                        <p><strong>Tasks Completed:</strong>
+                            <%= user.completedTasks %>
+                        </p>
+                        <!-- Button to open the badge gallery -->
+                        <button id="open-gallery-btn">View Badge Collection</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="mock-tests">
+            <h2>New Tasks</h2>
+            <ul>
+                <li><a href="#">chess game</a></li>
+                <li><a href="#">to do list</a></li>
+            </ul>
+        </section>
+        <section id="project-showcase">
+            <h2>Project Showcase</h2>
+            <div class="projects">
+                <!-- Example project -->
+                <div class="project">
+                    <h3>Project Title</h3>
+                    <p>Description of the project.</p>
+                    <a href="#">View Details</a>
+                </div>
+                <!-- Add more projects here -->
+            </div>
+        </section>
+        <section id="collaboration-forum">
+            <h2>Collaboration Forum</h2>
+            <div class="forum">
+                <ul>
+                    <li><a href="..uploads\connect.html">General Discussion</a></li>
+                    <li><a href="/real-life-problems/idea.html">Project Ideas</a></li>
+                    <li><a href="recommend.html">Resources Sharing</a></li>
+                    <!-- Add more forum topics here -->
+                </ul>
+            </div>
+        </section>
+        <section id="ai-support">
+            <h2>AI Support</h2>
+            <div class="ai-tools">
+                <p>Access AI tools to assist with your projects and studies.</p>
+                <ul>
+                    <li><a href="chatbot.html">AI Code Assistant</a></li>
+                    <!-- <li><a href="#">AI Study Planner</a></li> -->
+                    <!-- Add more AI tools here -->
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Badge Collection Gallery Modal -->
+    <div id="badge-gallery">
+        <div class="gallery-content">
+            <span class="close-btn" id="close-gallery-btn">&times;</span>
+            <h2>Your Badges</h2>
+            <div class="badge-gallery">
+                <div id="badge-container" style="display:none;"></div>
+
+                <!-- Badges will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                height: 'auto',
+                contentHeight: 359.63,
+                events: [
+                    {
+                        title: 'Active Day',
+                        start: '2024-07-01',
+                        backgroundColor: '#4CAF50',
+                        borderColor: '#4CAF50'
+                    },
+                    {
+                        title: 'Active Day',
+                        start: '2024-07-15',
+                        backgroundColor: '#4CAF50',
+                        borderColor: '#4CAF50'
+                    },
+                ],
+                eventClick: function (info) {
+                    alert(info.event.title + " on " + info.event.startStr);
+                }
+            });
+            calendar.render();
+
+            function openGallery() {
+                const badgeGallery = document.getElementById('badge-gallery');
+                const badgeGalleryContent = document.querySelector('.badge-gallery');
+
+                // Clear existing badges
+                badgeGalleryContent.innerHTML = '';
+
+                // Get badge container from task page
+                const badgeContainer = document.querySelector('#badge-container');
+
+                if (badgeContainer) {
+                    // Fetch and display badges
+                    fetchBadges().then(badges => {
+                        badges.forEach(badge => {
+                            const badgeElement = document.createElement('img');
+                            badgeElement.src = badge.imageUrl;
+                            badgeElement.alt = badge.name;
+                            badgeContainer.appendChild(badgeElement);
+                        });
+                    }).catch(error => {
+                        console.error('Error fetching badges:', error);
+                    });
+                } else {
+                    console.error('Badge container not found.');
+                }
+
+                badgeGallery.style.display = 'block';
+            }
+
+            function closeGallery() {
+                document.getElementById('badge-gallery').style.display = 'none';
+            }
+
+            document.getElementById('open-gallery-btn').addEventListener('click', openGallery);
+            document.getElementById('close-gallery-btn').addEventListener('click', closeGallery);
+        });
+    </script>
+</body>
+
+</html>

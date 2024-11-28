@@ -1,0 +1,240 @@
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e7e7f9;
+  overflow-x: hidden;
+  background-color: rgb(10, 9, 9);
+  /* overflow-y: hidden; */
+}
+
+/* Add this to your styles.css */
+
+.header .navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #282c34; /* Add a background color if needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+}
+
+.intro {
+  position: fixed;
+  top: 54px; /* Adjust based on the height of your navbar */
+  width: 100%;
+  z-index: 999;
+  background-color: white; /* Add a background color if needed */
+  padding: 20px 0; /* Adjust padding as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+}
+
+/* Add margin-top to the main content to avoid overlap */
+main {
+  margin-top: 120px; /* Adjust based on the combined height of the navbar and intro */
+}
+
+
+.header {
+  background-color: #282c34;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  display: inline;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #007bff;
+}
+
+.auth-links {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-links button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.auth-links button:hover {
+  background-color: #0056b3;
+}
+
+.main {
+  padding: 20px;
+}
+
+#list-example{
+  width: 30vh;
+  top: 40vh;
+  position: fixed;
+}
+
+.col-4{
+  padding: 4vh;
+    margin-top: -2vh;
+}
+
+.scrollspy-example{
+  position: relative;
+  left: -20vh;
+  top: 10vh;
+}
+.intro {
+  text-align: center;
+  /* padding: 50px; */
+  background-color: #007bff;
+  color: white;
+  border-radius: 0 0 100% 100% / 0 0 5% 5%;
+}
+/* 
+.master{
+  margin-top: 10vh;
+} */
+
+.content-section {
+  display: flex;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+.part1, .part3 {
+  flex-direction: row-reverse;
+}
+
+.text-content, .image-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.text-content h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.text-content p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #555;
+}
+
+.image-content img {
+  width: 100%;
+  max-height: 60vh;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* .footer {
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+  padding: 20px;
+} */
+
+/* .footer svg {
+  display: flex;
+  width: 100%;
+  max-height: 6vh;
+  height: auto;
+}
+
+.footer p {
+  margin: 10px 0 0;
+} */
+
+.auth-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background: url('background.jpg') no-repeat center center/cover;
+}
+
+.auth-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}

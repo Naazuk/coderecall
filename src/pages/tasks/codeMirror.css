@@ -1,0 +1,30 @@
+/* codeMirror.css */
+.codeMirrorContainer {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .CodeMirror {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+  
+  .CodeMirror-scroll {
+    overflow: auto;
+    height: 100%;
+  }
+  
+  .CodeMirror-gutters {
+    background: #f7f7f7;
+    border-right: 1px solid #ddd;
+    color: #999;
+    width: 50px;
+  }
+  
+  .CodeMirror-cursor {
+    border-left: 1px solid #000;
+  }
+  
