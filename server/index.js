@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const UserModel = require("./model/User");
+const path = require('path');
 
 dotenv.config();
 const app = express();
@@ -15,6 +16,12 @@ app.use(cors({
     credentials: true
 }));
 
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // Ensure your EJS files are inside a 'views' folder
+
+// Serve static files (like CSS, JS, images)
+app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
@@ -24,17 +31,37 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,  // 🔹 Important: Only save sessions when needed
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URI
     }),
-    cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 day
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        secure: false // 🔹 Change to `true` if using HTTPS
+    }
 }));
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port http://localhost:${process.env.PORT}`);
 });
 
+// Route for dashboard
+app.get('/dashboard', async (req, res) => {
+    try {
+        const email = req.session.user?.email;
+        if (!email) {
+            return res.status(401).send("Unauthorized: No user session found");
+        }
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+        res.render('dashboard', { user: { username: user.name, email: user.email, completedTasks: 10 } });
+    } catch (error) {
+        res.status(500).send("Server Error");
+    }
+});
 
 app.post("/signup", async (req, res) => {
     try {
@@ -51,8 +78,6 @@ app.post("/signup", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-
 
 app.post("/login", async (req, res) => {
     try {
@@ -75,7 +100,6 @@ app.post("/login", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 app.post("/logout", (req, res) => {
     if (req.session) {

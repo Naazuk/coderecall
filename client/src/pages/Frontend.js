@@ -148,7 +148,7 @@ function Frontend() {
 
   return (
     <div>
-      <header className="header">
+      {/* <header className="header">
         <nav className="navbar">
           <div className="logo">
             <h1>CodeRecall</h1>
@@ -164,7 +164,7 @@ function Frontend() {
             <button onClick={handleLogout} id="logout">Logout</button>
           </div>
         </nav>
-      </header>
+      </header> */}
       <main>
         <section className="tasks">
           <h2>Frontend Tasks</h2>

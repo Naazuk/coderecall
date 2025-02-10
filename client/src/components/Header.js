@@ -6,7 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
-import Logout from './Logout';
+// import Logout from './Logout';
+import ProfileMenu from './ProfileMenu';
 
 export const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     const location = useLocation(); // Get current path
@@ -73,7 +74,7 @@ export const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                         </Button>
                     </>
                 ) : (
-                    <Logout setIsLoggedIn={setIsLoggedIn} />
+                    <ProfileMenu setIsLoggedIn={setIsLoggedIn} />
                 )}
             </Toolbar>
         </AppBar>

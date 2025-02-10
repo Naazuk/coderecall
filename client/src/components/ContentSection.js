@@ -11,7 +11,7 @@ const ContentSection = () => {
 
   const sections = [
     { title: "Frontend", description: "Solve the frontend tasks here and become an expert.", path: "Frontend" },
-    { title: "Backend", description: "Solve the backend tasks here and become an expert." },
+    { title: "Backend", description: "Solve the backend tasks here and become an expert.",path:"Backendpage" },
     { title: "Frameworks", description: "Solve the framework tasks here and become an expert." },
     { title: "Quizzes", description: "Solve the quizzes here and become an expert.", path:"QuizzesPage" },
   ];
