@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import HomeStoriesCarousel from './HomeStoriesCarousel';
 import './ContentSection.css'; // Combine relevant CSS from all sections here
 import './WhyChooseUs.css';
 import './FAQSection.css';
@@ -73,6 +74,8 @@ const ContentSection = () => {
         </div>
       </div>
 
+     
+      <HomeStoriesCarousel />
       {/* Why Choose Us Section */}
       <div className="why-choose-us">
         <h2>Why choose us?</h2>

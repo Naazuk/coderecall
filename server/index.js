@@ -1,3 +1,4 @@
+const challengeRoutes = require('./routes/challengeRoutes');
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -7,6 +8,10 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const UserModel = require("./model/User");
 const path = require('path');
+const storyRoutes = require('./routes/storyRoutes');
+const Challenge = require('./model/Challenge');
+const Story = require('./model/Story');
+require('./cron/dailyEmail');
 
 dotenv.config();
 const app = express();
@@ -16,6 +21,20 @@ app.use(cors({
     credentials: true
 }));
 
+app.use('/api/challenges', challengeRoutes);
+// Add this before other routes
+app.use('/api/stories', storyRoutes); // Base path for all story routes
+app.get('/api/challenges/:id', async (req, res) => {
+    const challenge = await Challenge.findById(req.params.id);
+    if (!challenge) return res.status(404).json({ error: 'Challenge not found' });
+    res.json(challenge);
+  });
+  
+  app.get('/api/stories/:id', async (req, res) => {
+    const challenge = await Story.findById(req.params.id);
+    if (!challenge) return res.status(404).json({ error: 'Challenge not found' });
+    res.json(challenge);
+  });
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // Ensure your EJS files are inside a 'views' folder
@@ -122,3 +141,5 @@ app.get('/user', (req, res) => {
         res.status(401).json("Not authenticated");
     }
 });
+
+

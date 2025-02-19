@@ -28,6 +28,13 @@ import Quizzes from './pages/tasks/quizes/QuizzesPage';
 import Quize from './pages/tasks/quizes/HtmlQuize';
 import ProfileMenu from "./components/ProfileMenu";
 import Dashboard from "./components/Dashboard";
+import DailyStory from "./components/Stories/DailyStory";
+import StoriesDetails from "./components/Stories/StoriesDetails";
+import ChallengesPage from './pages/ChallengesPage';
+import ChallengeDetail from './components/Challenges/ChallengeDetail';
+// import HomeStoriesCarousel from "./components/HomeStoriesCarousel";
+
+// import SubmissionForm from './components/Challenges/SubmissionForm';
 // import View from './views/home.ejs';
 // import Head from './components/Header';
 // import Backend from './pages/Backend';
@@ -51,7 +58,7 @@ function App() {
     <BrowserRouter>
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className="App">
-      <ProfileMenu />
+        <ProfileMenu />
         <Routes>
           {/* Define routes for different pages */}
           <Route path="/" element={<Home />} />
@@ -71,6 +78,10 @@ function App() {
           <Route path="/QuizzesPage" element={<Quizzes />} />
           <Route path="/HtmlQuize" element={<Quize />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/startups" element={<DailyStory />} />
+          <Route path="/startups/:id" element={<StoriesDetails />} />
+          {/* <Route path="/storiescarousal" element={<HomeStoriesCarousel />} /> */}
+
           {/* <Route
             path="/dashboard"
             element={() => {
@@ -83,6 +94,11 @@ function App() {
           {/* 
           <Route path="/backend" element={<Backend />} />
           <Route path="/frameworks" element={<Frameworks />} /> */}
+
+          <Route path="/challenges" element={<ChallengesPage />} />
+          <Route path="/challenges/:id" element={<ChallengeDetail />} />
+          {/* <Route path="/challenges/:id/submit" element={<SubmissionForm />} /> */}
+
         </Routes>
         {/* <FQAS/> */}
         <ChatbotIcon />

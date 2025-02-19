@@ -43,10 +43,11 @@
 import React from 'react';
 import ContentSection from '../components/ContentSection';
 
+
 const Home = () => {
   return (
     <div style={{ backgroundColor: "#0a0909", minHeight: "100vh" }}>
-      <section className="intro" id="home" style={{ backgroundColor: "#0a0909", margin: "-1rem;" }}>
+      <section className="intro" id="home" style={{ backgroundColor: "#0a0909", margin: "-1rem;" , position:"absolute" }}>
         <h2 style={{ 
           fontSize: "2.5rem", 
           lineHeight: "1",
