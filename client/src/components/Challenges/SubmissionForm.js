@@ -26,9 +26,9 @@ export default function SubmissionForm() {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
+  
     try {
-      await axios.post(`/api/challenges/${id}/submit`, formData, {
+      await axios.post(`http://localhost:3001/api/challenges/${id}/submit`, formData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -41,6 +41,7 @@ export default function SubmissionForm() {
       setLoading(false);
     }
   };
+  
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>

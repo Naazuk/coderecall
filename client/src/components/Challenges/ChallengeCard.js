@@ -40,7 +40,7 @@ export default function ChallengeCard({ challenge }) {
             Solve
           </Button>
           
-          <Button
+          {/* <Button
             variant="outlined"
             startIcon={<GroupsIcon />}
             component={Link}
@@ -48,7 +48,7 @@ export default function ChallengeCard({ challenge }) {
             size="small"
           >
             Team Up
-          </Button>
+          </Button> */}
         </Box>
       </CardContent>
     </Card>

@@ -9,10 +9,12 @@ const MongoStore = require("connect-mongo");
 const UserModel = require("./model/User");
 const path = require('path');
 const storyRoutes = require('./routes/storyRoutes');
+const teamRoutes = require('./routes/teamRoutes');
 const Challenge = require('./model/Challenge');
 const Story = require('./model/Story');
 require('./cron/dailyEmail');
-
+const Team = require('./model/Team');
+const {emailService} = require("./utils/emailService"); // Ensure the correct path
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -20,7 +22,7 @@ app.use(cors({
     origin: 'http://localhost:3000', // Replace with your frontend's URL
     credentials: true
 }));
-
+app.use("/api/teams", teamRoutes);
 app.use('/api/challenges', challengeRoutes);
 // Add this before other routes
 app.use('/api/stories', storyRoutes); // Base path for all story routes
@@ -65,6 +67,90 @@ app.listen(process.env.PORT, () => {
     console.log(`Server is running on port http://localhost:${process.env.PORT}`);
 });
 
+// io.on('connection', (socket) => {
+//     console.log('a user connected');
+  
+//     socket.on('joinTeam', (teamId) => {
+//       socket.join(teamId);
+//     });
+  
+//     socket.on('chatMessage', (msg) => {
+//       io.to(msg.teamId).emit('chatMessage', msg);
+//     });
+  
+//     socket.on('disconnect', () => {
+//       console.log('user disconnected');
+//     });
+//   });
+// app.get('/', async (req, res) => {
+//     try {
+//       const teams = await Team.find();
+//       res.status(200).json(teams);
+//     } catch (error) {
+//       res.status(500).json({ error: 'Failed to fetch teams' });
+//     }
+//   });
+  
+
+//   const Team = require('./model/Team'); // Your Team model
+
+  app.get('/api/teams', async (req, res) => {
+      try {
+          const teams = await Team.find();
+          res.status(200).json(teams);
+      } catch (error) {
+          res.status(500).json({ message: 'Error retrieving teams', error });
+      }
+  });
+  
+  app.get('/api/teams/challenge/:challengeId', async (req, res) => {
+    try {
+      const teams = await Team.find({ challengeId: req.params.challengeId });
+      res.json(teams);
+    } catch (error) {
+      console.error("Error fetching teams:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  
+
+app.post('/api/teams', async (req, res) => {
+    try {
+      const { name, description, skillsNeeded, challengeId, inviteEmails} = req.body;
+      if (!name || !challengeId) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
+      const team = new Team({ name, description, skillsNeeded, challengeId, inviteEmails });
+      await team.save();
+      res.status(201).json(team);
+    } catch (error) {
+      console.error("Error creating team:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+
+app.get('/api/test-email', async (req, res) => {
+    try {
+      await emailService();
+      res.json({ success: true, message: "Test email sent successfully!" });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get('/api/teams/challenge/:challengeId', async (req, res) => {
+    const { challengeId } = req.params;
+    console.log("Received Challenge ID:", challengeId); // Debugging
+    const teams = await Team.find({ challenge: challengeId });
+  
+    if (!teams) {
+      return res.status(404).json({ error: "No teams found for this challenge" });
+    }
+  
+    res.json(teams);
+  });
+  
 // Route for dashboard
 app.get('/dashboard', async (req, res) => {
     try {

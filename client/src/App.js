@@ -31,7 +31,10 @@ import Dashboard from "./components/Dashboard";
 import DailyStory from "./components/Stories/DailyStory";
 import StoriesDetails from "./components/Stories/StoriesDetails";
 import ChallengesPage from './pages/ChallengesPage';
+import SubmissionForm from './components/Challenges/SubmissionForm';
 import ChallengeDetail from './components/Challenges/ChallengeDetail';
+import Project from './pages/Projects';
+import { ProjectDetail } from "./pages/Projects";
 // import HomeStoriesCarousel from "./components/HomeStoriesCarousel";
 
 // import SubmissionForm from './components/Challenges/SubmissionForm';
@@ -97,8 +100,10 @@ function App() {
 
           <Route path="/challenges" element={<ChallengesPage />} />
           <Route path="/challenges/:id" element={<ChallengeDetail />} />
+          <Route path="/challenges/:id/submission" element={<SubmissionForm />} />
+          <Route path="/Projects" element={<Project />} />
           {/* <Route path="/challenges/:id/submit" element={<SubmissionForm />} /> */}
-
+          <Route path="/project/:id" element={<ProjectDetail />} />
         </Routes>
         {/* <FQAS/> */}
         <ChatbotIcon />

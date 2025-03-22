@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import SubscribeForm from './SubsrcibeForm';
 import {
   Container,
   Typography,
@@ -123,6 +124,7 @@ const ChallengeDetail = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <SubscribeForm />
     </Container>
   );
 };

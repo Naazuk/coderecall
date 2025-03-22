@@ -5,6 +5,7 @@ import './ContentSection.css'; // Combine relevant CSS from all sections here
 import './WhyChooseUs.css';
 import './FAQSection.css';
 import './Footer.css';
+import Pricing from './Pricing';
 
 const ContentSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,7 +14,7 @@ const ContentSection = () => {
   const sections = [
     { title: "Frontend", description: "Solve the frontend tasks here and become an expert.", path: "Frontend" },
     { title: "Backend", description: "Solve the backend tasks here and become an expert.",path:"Backendpage" },
-    { title: "Frameworks", description: "Solve the framework tasks here and become an expert." },
+    { title: "Projects", description: "Complete the projects here and gain handon expirence", path:"Projects"},
     { title: "Quizzes", description: "Solve the quizzes here and become an expert.", path:"QuizzesPage" },
   ];
 
@@ -131,7 +132,7 @@ const ContentSection = () => {
           ))}
         </div>
       </div>
-
+      <Pricing/>
       <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Button, Card, CardMedia } from '@mui/material';
 import axios from 'axios';
-import SubscribeForm from './SubsrcibeForm';
+
 
 export default function DailyStory() {
   const [story, setStory] = useState(null);
@@ -14,7 +14,7 @@ export default function DailyStory() {
 
   return (
     <Container maxWidth="md">
-      <SubscribeForm />
+      
       {story ? (
         <Card>
           <CardMedia

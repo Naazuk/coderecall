@@ -1,22 +1,33 @@
-import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, Alert } from '@mui/material';
-import axios from 'axios';
+import React, { useState } from "react";
+import { TextField, Button, Box, Typography, Alert } from "@mui/material";
+import axios from "axios";
 
 const SubscribeForm = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/stories/subscribe', { email });
-      setMessage(response.data.message); // Use server message
+      const response = await axios.post(
+        "http://localhost:3001/api/stories/subscribe",
+        { email },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // Display success message directly from backend response
+      setMessage(response.data.message || "Subscribed successfully!");
       setIsError(false);
-      setEmail('');
+      setEmail(""); // Clear email input after success
     } catch (error) {
-      const serverMessage = error.response?.data?.error || 'Subscription failed';
-      setMessage(`${serverMessage} 😢`);
+      // Handle errors properly
+      const errorMessage =
+        error.response?.data?.error || "Subscription failed. Please try again.";
+      setMessage(errorMessage);
       setIsError(true);
     }
   };
@@ -37,12 +48,7 @@ const SubscribeForm = () => {
         sx={{ width: 300, mr: 2 }}
       />
 
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        size="large"
-      >
+      <Button type="submit" variant="contained" color="primary" size="large">
         Subscribe
       </Button>
 
