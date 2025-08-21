@@ -187,7 +187,7 @@
 //         </div>
 //       </div>
 //     </div>
-    
+
 //   );
 // };
 
@@ -369,7 +369,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
-
 const projectSteps = {
   1: [
     {
@@ -1230,9 +1229,8 @@ export const Projects = () => {
                 style={{ width: project.width, padding: project.padding, height: project.height }}
               >
                 <span
-                  className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium ${
-                    project.type === "Free" ? "bg-blue-600 text-white" : "bg-pink-600 text-white"
-                  }`}
+                  className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium ${project.type === "Free" ? "bg-blue-600 text-white" : "bg-pink-600 text-white"
+                    }`}
                 >
                   {project.type.toUpperCase()}
                 </span>
@@ -1257,9 +1255,8 @@ export const Projects = () => {
                 <div className="flex justify-between items-center mt-3 text-gray-400 text-xs">
                   <span>📋 {project.steps} Steps</span>
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      project.difficulty === "Basic" ? "bg-purple-600/20 text-purple-300" : "bg-red-600/20 text-red-300"
-                    }`}
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${project.difficulty === "Basic" ? "bg-purple-600/20 text-purple-300" : "bg-red-600/20 text-red-300"
+                      }`}
                   >
                     {project.difficulty}
                   </span>
@@ -1273,41 +1270,310 @@ export const Projects = () => {
   );
 };
 
+// export const ProjectDetail = () => {
+//   const { id } = useParams();
+//   const navigate = useNavigate();
+//   // const userEmail = localStorage.getItem("userEmail");
+//   const project = projectsData.find((p) => p.id === parseInt(id));
+//   const steps = projectSteps[id] || [];
+//   const [currentStep, setCurrentStep] = useState(null);
+
+//   const userEmail = localStorage.getItem("userEmail");
+
+//   useEffect(() => {
+//     if (!userEmail) {
+//       console.warn("User email is null. Ensure the user is logged in.");
+//       return;
+//     }
+//     const savedSteps = localStorage.getItem(`completedSteps_${userEmail}_${id}`);
+//     const savedProgress = localStorage.getItem(`progress_${userEmail}_${id}`);
+  
+//     setCompletedSteps(savedSteps ? JSON.parse(savedSteps) : []);
+//     setProgress(savedProgress ? parseInt(savedProgress) : 0);
+//   }, [userEmail, id]);
+  
+//   const [completedSteps, setCompletedSteps] = useState(() => {
+//     const saved = localStorage.getItem(`completedSteps_${userEmail}_${id}`);
+//     return saved ? JSON.parse(saved) : [];
+//   });
+
+//   const [progress, setProgress] = useState(() => {
+//     const saved = localStorage.getItem(`progress_${userEmail}_${id}`);
+//     return saved ? parseInt(saved) : 0;
+//   });
+
+
+  
+//   // Update completed steps and progress when the current step changes
+//   useEffect(() => {
+//     if (!userEmail) return; // Prevent running when there's no user
+
+//     // Reset progress and steps if no saved data exists for this user
+//     const savedSteps = localStorage.getItem(`completedSteps_${userEmail}_${id}`);
+//     if (!savedSteps) {
+//       setCompletedSteps([]);
+//       localStorage.setItem(`completedSteps_${userEmail}_${id}`, JSON.stringify([]));
+//     }
+
+//     const savedProgress = localStorage.getItem(`progress_${userEmail}_${id}`);
+//     if (!savedProgress) {
+//       setProgress(0);
+//       localStorage.setItem(`progress_${userEmail}_${id}`, "0");
+//     }
+//   }, [userEmail, id]);
+
+//   console.log("Current User:", userEmail);
+//   console.log("Stored Steps for User:", localStorage.getItem(`completedSteps_${userEmail}_${id}`));
+//   console.log("Stored Progress for User:", localStorage.getItem(`progress_${userEmail}_${id}`));
+
+
+
+//   if (!project) {
+//     return <div>Project not found</div>;
+//   }
+
+//   const handleStartProject = () => {
+//     setCurrentStep(1);
+//   };
+
+//   const handleResumeProject = () => {
+//     const nextStep = completedSteps.length + 1 > steps.length ? steps.length : completedSteps.length + 1;
+//     setCurrentStep(nextStep);
+//   };
+
+//   const handleNextStep = () => {
+//     if (currentStep < steps.length) {
+//       setCurrentStep(currentStep + 1);
+//     }
+//   };
+
+//   const handlePreviousStep = () => {
+//     if (currentStep > 1) {
+//       setCurrentStep(currentStep - 1);
+//     }
+//   };
+
+//   const copyToClipboard = (text) => {
+//     navigator.clipboard.writeText(text);
+//     alert("Code copied to clipboard!");
+//   };
+
+//   return (
+//     <div className="min-h-screen py-8">
+//       <div className="max-w-4xl mx-auto px-6">
+//         <button
+//           onClick={() => navigate(-1)}
+//           className="text-gray-400 mb-4 flex items-center gap-2 hover:text-gray-200 transition-colors duration-300"
+//         >
+//           ← Back
+//         </button>
+//         <div className="mb-6">
+//           <div className="flex justify-between items-center">
+//             <h2 className="text-3xl font-bold text-black">{project.title}</h2>
+//             <span
+//               className={`px-4 py-1 rounded-full text-sm font-medium ${project.type === "Free" ? "bg-blue-600 text-white" : "bg-pink-600 text-white"
+//                 }`}
+//             >
+//               {project.type.toUpperCase()}
+//             </span>
+//           </div>
+//           <p className="text-gray-300 text-sm mt-2">{project.description}</p>
+//         </div>
+//         <div className="flex gap-4 mb-6">
+//           <span className="flex items-center gap-2 text-gray-300">
+//             {project.techStack.includes("Python") && (
+//               <img src="https://www.python.org/static/favicon.ico" alt="Python" style={{ height: "16px", width: "16px" }} />
+//             )}
+//             {project.techStack[0]}
+//           </span>
+//           <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-600/20 text-blue-300">{project.difficulty}</span>
+//           <span className="flex items-center gap-2 text-gray-300">
+//             <span className="text-green-400">✔</span> {project.tasks} tasks
+//           </span>
+//         </div>
+//         <div className="mb-6">
+//           <h3 className="text-lg font-semibold text-black mb-2">Learning Outcomes</h3>
+//           <div className="flex flex-wrap gap-2">
+//             {project.learningOutcomes.map((outcome, index) => (
+//               <span
+//                 key={index}
+//                 className="px-3 py-1 rounded-full text-sm font-medium bg-gray-700/50 text-gray-300"
+//               >
+//                 {outcome}
+//               </span>
+//             ))}
+//           </div>
+//         </div>
+//         <div className="flex justify-between items-center mb-8">
+//           <div className="flex gap-4">
+//             <button
+//               onClick={handleStartProject}
+//               className="px-6 py-2 bg-purple-600 text-black rounded-full hover:bg-purple-700 transition-colors duration-300 flex items-center gap-2"
+//             >
+//               <span className="text-yellow-400">★</span> Start Project
+//             </button>
+//             {completedSteps.length > 0 && (
+//               <button
+//                 onClick={handleResumeProject}
+//                 className="px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-300 flex items-center gap-2"
+//               >
+//                 <span className="text-yellow-400">▶</span> Resume
+//               </button>
+//             )}
+//           </div>
+//           <div className="flex items-center gap-2">
+//             <div className="w-48 h-2 bg-gray-700 rounded-full">
+//               <div className="h-2 bg-purple-600 rounded-full" style={{ width: `${progress}%` }}></div>
+//             </div>
+//             <span className="text-gray-400 text-sm">{progress}% Complete</span>
+//           </div>
+//         </div>
+//         {!currentStep ? (
+//           <div>
+//             <h3 className="text-lg font-semibold text-black mb-4">Steps</h3>
+//             <div className="space-y-4">
+//               {steps.map((step) => (
+//                 <div
+//                   key={step.id}
+//                   className={`p-4 rounded-lg border border-gray-700/50 ${completedSteps.includes(step.id) ? "bg-green-900/50" : "bg-[#252542]/80"
+//                     }`}
+//                 >
+//                   <h4 className="text-black font-medium">{step.id}. {step.title}</h4>
+//                   <p className="text-gray-400 text-sm mt-1">{step.description}</p>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         ) : (
+//           <div>
+//             <h3 className="text-lg font-semibold text-white mb-4">
+//               Step {currentStep}: {steps[currentStep - 1].title}
+//             </h3>
+//             <div className="p-6 bg-[#252542]/80 rounded-lg border border-gray-700/50">
+//               <div className="text-gray-300">{steps[currentStep - 1].detailedDescription}</div>
+//               <button
+//                 onClick={() => copyToClipboard(steps[currentStep - 1].detailedDescription.props.children.find(c => c.type === SyntaxHighlighter)?.props.children || '')}
+//                 className="mt-4 px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-300"
+//               >
+//                 Copy Code
+//               </button>
+//               <div className="flex justify-between mt-6">
+//                 <button
+//                   onClick={handlePreviousStep}
+//                   disabled={currentStep === 1}
+//                   className={`px-4 py-2 rounded-full text-sm ${currentStep === 1
+//                       ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+//                       : "bg-blue-600 text-black hover:bg-blue-700"
+//                     } transition-colors duration-300`}
+//                 >
+//                   Previous
+//                 </button>
+//                 <button
+//                   onClick={handleNextStep}
+//                   disabled={currentStep === steps.length}
+//                   className={`px-4 py-2 rounded-full text-sm ${currentStep === steps.length
+//                       ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+//                       : "bg-blue-600 text-white hover:bg-blue-700"
+//                     } transition-colors duration-300`}
+//                 >
+//                   {currentStep === steps.length ? "Finish" : "Next"}
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Projects;
+
+
+
 export const ProjectDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  // const userEmail = localStorage.getItem("userEmail");
   const project = projectsData.find((p) => p.id === parseInt(id));
   const steps = projectSteps[id] || [];
   const [currentStep, setCurrentStep] = useState(null);
+
+  const userEmail = localStorage.getItem("userEmail");
+
+  useEffect(() => {
+    if (!userEmail) return; 
+  
+    // Fetch stored data from localStorage
+    const savedSteps = JSON.parse(localStorage.getItem(`completedSteps_${userEmail}_${id}`)) || [];
+    const savedProgress = parseInt(localStorage.getItem(`progress_${userEmail}_${id}`)) || 0;
+  
+    setCompletedSteps(savedSteps);
+    setProgress(savedProgress);
+  }, [userEmail, id]);
+  
+  
   const [completedSteps, setCompletedSteps] = useState(() => {
-    const saved = localStorage.getItem(`completedSteps_${id}`);
+    const saved = localStorage.getItem(`completedSteps_${userEmail}_${id}`);
     return saved ? JSON.parse(saved) : [];
   });
+
   const [progress, setProgress] = useState(() => {
-    const saved = localStorage.getItem(`progress_${id}`);
+    const saved = localStorage.getItem(`progress_${userEmail}_${id}`);
     return saved ? parseInt(saved) : 0;
   });
 
-  // Update completed steps and progress when the current step changes
-  useEffect(() => {
+
+    useEffect(() => {
     if (currentStep) {
-      const newCompletedSteps = [...new Set([...completedSteps, currentStep])]; // Add current step if not already completed
+      const newCompletedSteps = [...new Set([...completedSteps, currentStep])];
       setCompletedSteps(newCompletedSteps);
 
-      // Calculate progress: if on the last step, set to 100%; otherwise, calculate based on completed steps
-      let newProgress;
-      if (currentStep === steps.length) {
-        newProgress = 100; // Set to 100% if on the last step
-      } else {
-        newProgress = Math.round((newCompletedSteps.length / steps.length) * 100);
-      }
+      let newProgress = currentStep === steps.length ? 100 : Math.round((newCompletedSteps.length / steps.length) * 100);
       setProgress(newProgress);
 
-      // Save to localStorage
-      localStorage.setItem(`completedSteps_${id}`, JSON.stringify(newCompletedSteps));
-      localStorage.setItem(`progress_${id}`, newProgress);
+      localStorage.setItem(`completedSteps_${userEmail}_${id}`, JSON.stringify(newCompletedSteps));
+      localStorage.setItem(`progress_${userEmail}_${id}`, newProgress);
     }
-  }, [currentStep, steps.length, id, completedSteps]);
+  }, [currentStep, steps.length, id, completedSteps, userEmail]);
+  // Update completed steps and progress when the current step changes
+  // useEffect(() => {
+  //   if (!userEmail) return; // Prevent running when there's no user
+
+  //   // Reset progress and steps if no saved data exists for this user
+  //   const savedSteps = localStorage.getItem(`completedSteps_${userEmail}_${id}`);
+  //   if (!savedSteps) {
+  //     setCompletedSteps([]);
+  //     localStorage.setItem(`completedSteps_${userEmail}_${id}`, JSON.stringify([]));
+  //   }
+
+  //   const savedProgress = localStorage.getItem(`progress_${userEmail}_${id}`);
+  //   if (!savedProgress) {
+  //     setProgress(0);
+  //     localStorage.setItem(`progress_${userEmail}_${id}`, "0");
+  //   }
+  // }, [userEmail, id]);
+
+  console.log("Current User:", userEmail);
+  console.log("Stored Steps for User:", localStorage.getItem(`completedSteps_${userEmail}_${id}`));
+  console.log("Stored Progress for User:", localStorage.getItem(`progress_${userEmail}_${id}`));
+
+  // const markStepCompleted = (stepId) => {
+  //   if (!completedSteps.includes(stepId)) {
+  //     const updatedSteps = [...completedSteps, stepId];
+  //     setCompletedSteps(updatedSteps);
+  
+  //     // Update localStorage
+  //     localStorage.setItem(`completedSteps_${userEmail}_${id}`, JSON.stringify(updatedSteps));
+  
+  //     // Calculate Progress
+  //     const newProgress = Math.round((updatedSteps.length / steps.length) * 100);
+  //     setProgress(newProgress);
+  //     localStorage.setItem(`progress_${userEmail}_${id}`, newProgress.toString());
+  //   }
+  // };
+  
+
 
   if (!project) {
     return <div>Project not found</div>;
@@ -1352,9 +1618,8 @@ export const ProjectDetail = () => {
           <div className="flex justify-between items-center">
             <h2 className="text-3xl font-bold text-black">{project.title}</h2>
             <span
-              className={`px-4 py-1 rounded-full text-sm font-medium ${
-                project.type === "Free" ? "bg-blue-600 text-white" : "bg-pink-600 text-white"
-              }`}
+              className={`px-4 py-1 rounded-full text-sm font-medium ${project.type === "Free" ? "bg-blue-600 text-white" : "bg-pink-600 text-white"
+                }`}
             >
               {project.type.toUpperCase()}
             </span>
@@ -1417,9 +1682,8 @@ export const ProjectDetail = () => {
               {steps.map((step) => (
                 <div
                   key={step.id}
-                  className={`p-4 rounded-lg border border-gray-700/50 ${
-                    completedSteps.includes(step.id) ? "bg-green-900/50" : "bg-[#252542]/80"
-                  }`}
+                  className={`p-4 rounded-lg border border-gray-700/50 ${completedSteps.includes(step.id) ? "bg-green-900/50" : "bg-[#252542]/80"
+                    }`}
                 >
                   <h4 className="text-black font-medium">{step.id}. {step.title}</h4>
                   <p className="text-gray-400 text-sm mt-1">{step.description}</p>
@@ -1444,22 +1708,20 @@ export const ProjectDetail = () => {
                 <button
                   onClick={handlePreviousStep}
                   disabled={currentStep === 1}
-                  className={`px-4 py-2 rounded-full text-sm ${
-                    currentStep === 1
+                  className={`px-4 py-2 rounded-full text-sm ${currentStep === 1
                       ? "bg-gray-600 text-gray-400 cursor-not-allowed"
                       : "bg-blue-600 text-black hover:bg-blue-700"
-                  } transition-colors duration-300`}
+                    } transition-colors duration-300`}
                 >
                   Previous
                 </button>
                 <button
                   onClick={handleNextStep}
                   disabled={currentStep === steps.length}
-                  className={`px-4 py-2 rounded-full text-sm ${
-                    currentStep === steps.length
+                  className={`px-4 py-2 rounded-full text-sm ${currentStep === steps.length
                       ? "bg-gray-600 text-gray-400 cursor-not-allowed"
                       : "bg-blue-600 text-white hover:bg-blue-700"
-                  } transition-colors duration-300`}
+                    } transition-colors duration-300`}
                 >
                   {currentStep === steps.length ? "Finish" : "Next"}
                 </button>
@@ -1473,3 +1735,112 @@ export const ProjectDetail = () => {
 };
 
 export default Projects;
+
+// export const ProjectDetail = () => {
+//   const { id } = useParams();
+//   const navigate = useNavigate();
+//   const userEmail = localStorage.getItem("userEmail"); // Get user email from localStorage or context
+//   const project = projectsData.find((p) => p.id === parseInt(id));
+//   const steps = projectSteps[id] || [];
+//   const [currentStep, setCurrentStep] = useState(null);
+//   const [completedSteps, setCompletedSteps] = useState(() => {
+//     const saved = localStorage.getItem(`completedSteps_${userEmail}_${id}`);
+//     return saved ? JSON.parse(saved) : [];
+//   });
+//   const [progress, setProgress] = useState(() => {
+//     const saved = localStorage.getItem(`progress_${userEmail}_${id}`);
+//     return saved ? parseInt(saved) : 0;
+//   });
+
+//   useEffect(() => {
+//     if (currentStep) {
+//       const newCompletedSteps = [...new Set([...completedSteps, currentStep])];
+//       setCompletedSteps(newCompletedSteps);
+
+//       let newProgress = currentStep === steps.length ? 100 : Math.round((newCompletedSteps.length / steps.length) * 100);
+//       setProgress(newProgress);
+
+//       localStorage.setItem(`completedSteps_${userEmail}_${id}`, JSON.stringify(newCompletedSteps));
+//       localStorage.setItem(`progress_${userEmail}_${id}`, newProgress);
+//     }
+//   }, [currentStep, steps.length, id, completedSteps, userEmail]);
+
+//   if (!project) {
+//     return <div>Project not found</div>;
+//   }
+
+//   const handleStartProject = () => {
+//     setCurrentStep(1);
+//   };
+
+//   const handleResumeProject = () => {
+//     const nextStep = completedSteps.length + 1 > steps.length ? steps.length : completedSteps.length + 1;
+//     setCurrentStep(nextStep);
+//   };
+
+//   const handleNextStep = () => {
+//     if (currentStep < steps.length) {
+//       setCurrentStep(currentStep + 1);
+//     }
+//   };
+
+//   const handlePreviousStep = () => {
+//     if (currentStep > 1) {
+//       setCurrentStep(currentStep - 1);
+//     }
+//   };
+
+//   const copyToClipboard = (text) => {
+//     navigator.clipboard.writeText(text);
+//     alert("Code copied to clipboard!");
+//   };
+
+//   return (
+//     <div className="min-h-screen py-8">
+//       <div className="max-w-4xl mx-auto px-6">
+//         <button onClick={() => navigate(-1)} className="text-gray-400 mb-4 flex items-center gap-2 hover:text-gray-200 transition-colors duration-300">
+//           ← Back
+//         </button>
+//         <div className="mb-6">
+//           <div className="flex justify-between items-center">
+//             <h2 className="text-3xl font-bold text-black">{project.title}</h2>
+//             <span className={`px-4 py-1 rounded-full text-sm font-medium ${project.type === "Free" ? "bg-blue-600 text-white" : "bg-pink-600 text-white"}`}>
+//               {project.type.toUpperCase()}
+//             </span>
+//           </div>
+//           <p className="text-gray-300 text-sm mt-2">{project.description}</p>
+//         </div>
+//         <div className="flex gap-4 mb-6">
+//           <span className="flex items-center gap-2 text-gray-300">
+//             {project.techStack.includes("Python") && <img src="https://www.python.org/static/favicon.ico" alt="Python" style={{ height: "16px", width: "16px" }} />}
+//             {project.techStack[0]}
+//           </span>
+//           <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-600/20 text-blue-300">{project.difficulty}</span>
+//           <span className="flex items-center gap-2 text-gray-300">
+//             <span className="text-green-400">✔</span> {project.tasks} tasks
+//           </span>
+//         </div>
+//         <div className="flex justify-between items-center mb-8">
+//           <div className="flex gap-4">
+//             <button onClick={handleStartProject} className="px-6 py-2 bg-purple-600 text-black rounded-full hover:bg-purple-700 transition-colors duration-300 flex items-center gap-2">
+//               <span className="text-yellow-400">★</span> Start Project
+//             </button>
+//             {completedSteps.length > 0 && (
+//               <button onClick={handleResumeProject} className="px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-300 flex items-center gap-2">
+//                 <span className="text-yellow-400">▶</span> Resume
+//               </button>
+//             )}
+//           </div>
+//           <div className="flex items-center gap-2">
+//             <div className="w-48 h-2 bg-gray-700 rounded-full">
+//               <div className="h-2 bg-purple-600 rounded-full" style={{ width: `${progress}%` }}></div>
+//             </div>
+//             <span className="text-gray-400 text-sm">{progress}% Complete</span>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ProjectDetail;

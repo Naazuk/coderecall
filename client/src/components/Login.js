@@ -16,6 +16,10 @@ function Login({ setIsLoggedIn, isLoggedIn }) {
                     axios.get('http://localhost:3001/user', { withCredentials: true })
                         .then(response => {
                             if (response.data.user) {
+                                // This should be called after successful login
+// localStorage.setItem('userId', 'user123'); // Replace 'user123' with the actual user ID
+
+                              localStorage.setItem("userEmail", response.data.user.email);
                               setIsLoggedIn(true);
                               navigate("/", { state: { user: response.data.user } });
                             }

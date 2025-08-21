@@ -8,9 +8,9 @@ const App = () => {
   const [progress, setProgress] = useState(0);
   const [downloadButtonVisible, setDownloadButtonVisible] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [taskSolved, setTaskSolved] = useState(false);
-  const [points, setPoints] = useState(() => JSON.parse(localStorage.getItem('points')) || 0);
-  const [level, setLevel] = useState(() => localStorage.getItem('level') || 'Beginner');
+  // const [taskSolved, setTaskSolved] = useState(false);
+  // const [points, setPoints] = useState(() => JSON.parse(localStorage.getItem('points')) || 0);
+  // const [level, setLevel] = useState(() => localStorage.getItem('level') || 'Beginner');
   const [confettiVisible, setConfettiVisible] = useState(false);
   const [badgeEarned, setBadgeEarned] = useState(false);
   const [showBadgePopup, setShowBadgePopup] = useState(false);
@@ -31,57 +31,71 @@ const App = () => {
   const levels = ['Beginner', 'Intermediate', 'Expert'];
   const pointsPerLevel = 100;
 
-  useEffect(() => {
-    const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-    setTaskSolved(completedTasks.includes('css'));
-  }, []);
+ 
 
-  // Load solved task state from localStorage on mount
-  // useEffect(() => {
-  //   const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-  //   setTaskSolved(completedTasks.includes('task-navbar')); // Adjust this ID for each task
-  // }, []);
-
-
-  useEffect(() => {
-    localStorage.setItem('points', points);
-    localStorage.setItem('level', level);
-  }, [points, level]);
-
-  // const btn = document.getElementById('mark-solved-btn');
-  const markAsSolved = () => {
-    if (!taskSolved) {
-      setTaskSolved(true);
-      setPoints(points + 20);
-      setBadgeEarned(true);
-      setConfettiVisible(true);
-      // setDownloadButtonVisible(true);
-      setTimeout(() => {
-        setConfettiVisible(false);
-        setShowBadgePopup(true);
+  const userId = localStorage.getItem('userEmail');
+  
+    const getUserData = (key, defaultValue) => {
+      const storedData = JSON.parse(localStorage.getItem(`${userId}_${key}`));
+      return storedData !== null ? storedData : defaultValue;
+    };
+  
+    const setUserData = (key, value) => {
+      localStorage.setItem(`${userId}_${key}`, JSON.stringify(value));
+    };
+  
+    const [points, setPoints] = useState(() => getUserData('points', 0));
+    const [level, setLevel] = useState(() => getUserData('level', 'Beginner'));
+    const [completedTasks, setCompletedTasks] = useState(() => getUserData('completedTasks', []));
+  
+    useEffect(() => {
+      setUserData('points', points);
+      setUserData('level', level);
+      setUserData('completedTasks', completedTasks);
+      updateProgress(completedTasks.length);
+    }, [points, level, completedTasks]);
+  
+    const markAsSolved = () => {
+      if (!completedTasks.includes('g')) {
+        const updatedTasks = [...completedTasks, 'g'];
+        setCompletedTasks(updatedTasks);
+        setPoints(points + 20);
+        setBadgeEarned(true);
+        setConfettiVisible(true);
+        setTaskSolved(true);
+  
         setTimeout(() => {
-          setShowBadgePopup(false);
-        }, 4000);
-      }, 2000);
-
-      // Update localStorage for solved task
-      const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-      completedTasks.push('css'); // Adjust this ID for each task
-      localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-      updateLevel();
-    } else {
-      alert('Task already solved');
-    }
-  };
-
-  const updateLevel = () => {
-    if (points % pointsPerLevel === 0 && points !== 0) {
-      const currentLevelIndex = levels.indexOf(level);
-      if (currentLevelIndex < levels.length - 1) {
-        setLevel(levels[currentLevelIndex + 1]);
+          setConfettiVisible(false);
+          setShowBadgePopup(true);
+          setTimeout(() => {
+            setShowBadgePopup(false);
+          }, 4000);
+        }, 2000);
+  
+        setUserData('completedTasks', updatedTasks);
+        updateLevel();
+        updateProgress(updatedTasks.length);
+      } else {
+        alert('Task already solved');
       }
-    }
-  };
+    };
+    const [taskSolved, setTaskSolved] = useState(() => getUserData('completedTasks', []).includes('g'));
+  
+  
+    const updateLevel = () => {
+      if (points % pointsPerLevel === 0 && points !== 0) {
+        const currentLevelIndex = levels.indexOf(level);
+        if (currentLevelIndex < levels.length - 1) {
+          setLevel(levels[currentLevelIndex + 1]);
+        }
+      }
+    };
+  
+    const updateProgress = (completedCount) => {
+      const totalTasks = 5;
+      const newProgress = (completedCount / totalTasks) * 100;
+      setProgress(newProgress);
+    };
 
   const handleDownloadBadge = () => {
     const link = document.createElement('a');

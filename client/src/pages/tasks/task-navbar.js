@@ -6,12 +6,14 @@ import badgeImage from './badge.png';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const [taskSolved, setTaskSolved] = useState(false);
-  const [points, setPoints] = useState(() => JSON.parse(localStorage.getItem('points')) || 0);
-  const [level, setLevel] = useState(() => localStorage.getItem('level') || 'Beginner');
+  // const [taskSolved, setTaskSolved] = useState(false);
+  // const [points, setPoints] = useState(() => JSON.parse(localStorage.getItem('points')) || 0);
+  // const [level, setLevel] = useState(() => localStorage.getItem('level') || 'Beginner');
   const [confettiVisible, setConfettiVisible] = useState(false);
   const [badgeEarned, setBadgeEarned] = useState(false);
   const [showBadgePopup, setShowBadgePopup] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [task,updatedTasks] = useState(0);
   const [code, setCode] = useState(`<!DOCTYPE html>
 <html>
 <head>
@@ -26,51 +28,53 @@ function App() {
 </html>`);
   const editorRef = useRef(null);
   const iframeRef = useRef(null);
-
   const levels = ['Beginner', 'Intermediate', 'Expert'];
   const pointsPerLevel = 100;
+  const userId = localStorage.getItem('userEmail'); 
+const getUserData = (key, defaultValue) => {
+  const storedData = JSON.parse(localStorage.getItem(`${userId}_${key}`));
+  return storedData !== null ? storedData : defaultValue;
+};
 
-  useEffect(() => {
-    const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-    setTaskSolved(completedTasks.includes('task-navba'));
-  }, []);
+const setUserData = (key, value) => {
+  localStorage.setItem(`${userId}_${key}`, JSON.stringify(value));
+};
 
-  // Load solved task state from localStorage on mount
-  // useEffect(() => {
-  //   const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-  //   setTaskSolved(completedTasks.includes('task-navba')); // Adjust this ID for each task
-  // }, []);
+const [points, setPoints] = useState(() => getUserData('points', 0));
+const [level, setLevel] = useState(() => getUserData('level', 'Beginner'));
+const [completedTasks, setCompletedTasks] = useState(() => getUserData('completedTasks', []));
 
+useEffect(() => {
+  setUserData('points', points);
+  setUserData('level', level);
+  setUserData('completedTasks', completedTasks);
+}, [points, level, completedTasks]);
 
-  useEffect(() => {
-    localStorage.setItem('points', points);
-    localStorage.setItem('level', level);
-  }, [points, level]);
+const markAsSolved = () => {
+  if (!completedTasks.includes('ma')) {
+    const updatedTasks = [...completedTasks, 'ma'];
+    setCompletedTasks(updatedTasks);
+    setPoints(points + 20);
+    setBadgeEarned(true);
+    setConfettiVisible(true);
+    setTaskSolved(true); // ✅ Ensure the button turns green
 
-  // const btn = document.getElementById('mark-solved-btn');
-  const markAsSolved = () => {
-    if (!taskSolved) {
-      setTaskSolved(true);
-      setPoints(points + 20);
-      setBadgeEarned(true);
-      setConfettiVisible(true);
+    setTimeout(() => {
+      setConfettiVisible(false);
+      setShowBadgePopup(true);
       setTimeout(() => {
-        setConfettiVisible(false);
-        setShowBadgePopup(true);
-        setTimeout(() => {
-          setShowBadgePopup(false);
-        }, 4000);
-      }, 2000);
+        setShowBadgePopup(false);
+      }, 4000);
+    }, 2000);
 
-      // Update localStorage for solved task
-      const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-      completedTasks.push('task-navba'); // Adjust this ID for each task
-      localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-      updateLevel();
-    } else {
-      alert('Task already solved');
-    }
-  };
+    setUserData('completedTasks', updatedTasks);
+    updateLevel();
+    updateProgress(updatedTasks.length); // ✅ Update progress bar
+  } else {
+    alert('Task already solved');
+  }
+};
+const [taskSolved, setTaskSolved] = useState(() => getUserData('completedTasks', []).includes('ma'));
 
   const updateLevel = () => {
     if (points % pointsPerLevel === 0 && points !== 0) {
@@ -81,6 +85,12 @@ function App() {
     }
   };
 
+  const updateProgress = (completedCount) => {
+    const totalTasks = 5;
+    const newProgress = (completedCount / totalTasks) * 100;
+    setProgress(newProgress);
+  };
+  
   const handleDownloadBadge = () => {
     const link = document.createElement('a');
     link.href = badgeImage;
@@ -90,9 +100,6 @@ function App() {
     document.body.removeChild(link);
   };
 
-
-
-
   const runCode = () => {
     const iframe = iframeRef.current;
     if (iframe) {
@@ -101,6 +108,8 @@ function App() {
       iframe.contentDocument.close();
     }
   };
+
+
 
   return (
     <div className={`app ${darkMode ? 'dark-mode' : ''}`}>

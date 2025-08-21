@@ -1,3 +1,422 @@
+// import React, { useState, useEffect, useRef } from 'react';
+// import './tasks.css';
+// import './carousal.css';
+// import badgeImage from './badge.png';
+// import Confetti from 'react-confetti';
+
+// const App = () => {
+//   const [progress, setProgress] = useState(0);
+//   const [downloadButtonVisible, setDownloadButtonVisible] = useState(false);
+//   const [darkMode, setDarkMode] = useState(false);
+//   const [taskSolved, setTaskSolved] = useState(false);
+//   // const [points, setPoints] = useState(() => JSON.parse(localStorage.getItem('points')) || 0);
+//   // const [level, setLevel] = useState(() => localStorage.getItem('level') || 'Beginner');
+//   const [confettiVisible, setConfettiVisible] = useState(false);
+//   const [badgeEarned, setBadgeEarned] = useState(false);
+//   const [showBadgePopup, setShowBadgePopup] = useState(false);
+//   const [code, setCode] = useState(`<!DOCTYPE html>
+// <html>
+// <head>
+//   <title>My Responsive Navbar</title>
+//   <style>
+//     /* Write your CSS here */
+//   </style>
+// </head>
+// <body>
+//   <!-- Write your HTML here -->
+// </body>
+// </html>`);
+//   const editorRef = useRef(null);
+//   const iframeRef = useRef(null);
+//   const levels = ['Beginner', 'Intermediate', 'Expert'];
+//   const pointsPerLevel = 100;
+// const userId = localStorage.getItem('userEmail'); // Get logged-in user's ID
+
+// const getUserData = (key, defaultValue) => {
+//   const storedData = JSON.parse(localStorage.getItem(`${userId}_${key}`));
+//   return storedData !== null ? storedData : defaultValue;
+// };
+
+// const setUserData = (key, value) => {
+//   localStorage.setItem(`${userId}_${key}`, JSON.stringify(value));
+// };
+
+// const [points, setPoints] = useState(() => getUserData('points', 0));
+// const [level, setLevel] = useState(() => getUserData('level', 'Beginner'));
+// const [completedTasks, setCompletedTasks] = useState(() => getUserData('completedTasks', []));
+
+// useEffect(() => {
+//   setUserData('points', points);
+//   setUserData('level', level);
+//   setUserData('completedTasks', completedTasks);
+// }, [points, level, completedTasks]);
+
+// const markAsSolved = () => {
+//   if (!completedTasks.includes('ca')) {
+//     setCompletedTasks([...completedTasks, 'ca']);
+//     setPoints(points + 20);
+//     setBadgeEarned(true);
+//     setConfettiVisible(true);
+
+//     setTimeout(() => {
+//       setConfettiVisible(false);
+//       setShowBadgePopup(true);
+//       setTimeout(() => {
+//         setShowBadgePopup(false);
+//       }, 4000);
+//     }, 2000);
+
+//     // Save user-specific completed tasks
+//     setUserData('completedTasks', [...completedTasks, 'ca']);
+
+//     updateLevel();
+//   } else {
+//     alert('Task already solved');
+//   }
+// };
+
+//   const updateLevel = () => {
+//     if (points % pointsPerLevel === 0 && points !== 0) {
+//       const currentLevelIndex = levels.indexOf(level);
+//       if (currentLevelIndex < levels.length - 1) {
+//         setLevel(levels[currentLevelIndex + 1]);
+//       }
+//     }
+//   };
+
+//   const handleDownloadBadge = () => {
+//     const link = document.createElement('a');
+//     link.href = badgeImage;
+//     link.download = 'badge.png';
+//     document.body.appendChild(link);
+//     link.click();
+//     document.body.removeChild(link);
+//   };
+
+//   const runCode = () => {
+//     const iframe = iframeRef.current;
+//     if (iframe) {
+//       iframe.contentDocument.open();
+//       iframe.contentDocument.write(code);
+//       iframe.contentDocument.close();
+//     }
+//   };
+//   return (
+//     <div>
+//       <header className="header">
+//         <nav className="navbar">
+//           <div className="logo">
+//             <h1>CodeRecall</h1>
+//           </div>
+//           <ul className="nav-links">
+//             <li><a href="index.html">Home</a></li>
+//             <li><a href="frontend.html">Frontend</a></li>
+//             <li><a href="backend.html">Backend</a></li>
+//             <li><a href="frameworks.html">Frameworks</a></li>
+//           </ul>
+//           <div className="auth-links">
+//             <button onClick={() => window.location.href = 'index.html'} id="logout">Logout</button>
+//           </div>
+//         </nav>
+//       </header>
+//       {/* <div className={`main-content ${showBadgePopup ? 'blur' : ''}`}> */}
+//       <main>
+//         {confettiVisible && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+//         <section className="user-progress">
+//           <h3>Progress</h3>
+//           <div className="progress-bar">
+//             <div className="progress-bar-fill" id="progress-bar-fill" style={{ width: `${progress}%` }}></div>
+//           </div>
+//           <p>Points: <span id="points">{points}</span> | Level: <span id="level">{level}</span></p>
+//         </section>
+
+//         <section className="task-detail">
+//           <h2>JavaScript Carousel</h2>
+//           <p>Create a simple image carousel using JavaScript.</p>
+//           <div className="task-buttons">
+//             {/* <button onClick={markAsSolved} style={{ backgroundColor: taskSolved ? 'green' : '' }}>{taskSolved ? 'Solved!' : 'Mark as Solved'}</button> */}
+//             <button
+//   onClick={markAsSolved}
+//   style={{ backgroundColor: taskSolved ? 'green' : '' }}
+// >
+//   {taskSolved ? 'Solved!' : 'Mark as Solved'}
+// </button>
+
+//             {/* <button id="view-prerequisites-btn" onClick={handleViewPrerequisites}>View Prerequisites</button> */}
+//           </div>
+
+
+//           {taskSolved && (
+//             <div id="solution">
+//               <h3>Solution Code</h3>
+//               <pre>{`<!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//   <title>Simple Carousel</title>
+//   <style>
+//     * {
+//       box-sizing: border-box;
+//       margin: 0;
+//       padding: 0;
+//     }
+
+//     body {
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       height: 100vh;
+//       background-color: #f4f4f4;
+//     }
+
+//     .carousel-container {
+//       width: 300px;
+//       height: 200px;
+//       position: relative;
+//       overflow: hidden;
+//       border-radius: 10px;
+//       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+//     }
+
+//     .carousel-slide {
+//       display: flex;
+//       transition: transform 0.5s ease-in-out;
+//     }
+
+//     .carousel-item {
+//       min-width: 100%;
+//       height: 100%;
+//     }
+
+//     .carousel-item:nth-child(1) {
+//       background-color: #ff6b6b;
+//     }
+
+//     .carousel-item:nth-child(2) {
+//       background-color: #4ecdc4;
+//     }
+
+//     .carousel-item:nth-child(3) {
+//       background-color: #1a535c;
+//     }
+
+//     .carousel-item:nth-child(4) {
+//       background-color: #ffe66d;
+//     }
+
+//     .carousel-item:nth-child(5) {
+//       background-color: #ff9f1c;
+//     }
+
+//     .nav-button {
+//       position: absolute;
+//       top: 50%;
+//       transform: translateY(-50%);
+//       background-color: rgba(255, 255, 255, 0.7);
+//       border: none;
+//       padding: 10px;
+//       cursor: pointer;
+//       border-radius: 50%;
+//     }
+
+//     .nav-button:hover {
+//       background-color: rgba(255, 255, 255, 1);
+//     }
+
+//     .prev {
+//       left: 10px;
+//     }
+
+//     .next {
+//       right: 10px;
+//     }
+//   </style>
+// </head>
+// <body>
+//   <div class="carousel-container">
+//     <div class="carousel-slide">
+//       <div class="carousel-item">Slide 1</div>
+//       <div class="carousel-item">Slide 2</div>
+//       <div class="carousel-item">Slide 3</div>
+//       <div class="carousel-item">Slide 4</div>
+//       <div class="carousel-item">Slide 5</div>
+//     </div>
+//     <button class="nav-button prev">&#10094;</button>
+//     <button class="nav-button next">&#10095;</button>
+//   </div>
+
+//   <script>
+//     document.addEventListener('DOMContentLoaded', () => {
+//       const slide = document.querySelector('.carousel-slide');
+//       const items = document.querySelectorAll('.carousel-item');
+//       const prevButton = document.querySelector('.prev');
+//       const nextButton = document.querySelector('.next');
+
+//       let currentIndex = 0;
+//       const totalSlides = items.length;
+
+//       function showSlide(index) {
+//         currentIndex = (index + totalSlides) % totalSlides;  // Ensure the index loops correctly
+//         slide.style.transform = "translateX(-" + (currentIndex * 100) + "%)";
+//       }
+
+//                 function nextSlide() {
+//                   showSlide(currentIndex + 1);
+//       }
+
+//                 function prevSlide() {
+//                   showSlide(currentIndex - 1);
+//       }
+
+//                 nextButton.addEventListener('click', nextSlide);
+//                 prevButton.addEventListener('click', prevSlide);
+
+//                 // Auto Slide every 3 seconds
+//                 let autoSlideInterval = setInterval(nextSlide, 3000);
+
+//                 // Pause auto-slide on hover
+//                 const carouselContainer = document.querySelector('.carousel-container');
+//       carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+//       carouselContainer.addEventListener('mouseleave', () => autoSlideInterval = setInterval(nextSlide, 3000));
+//     });
+//               </script>
+//             </body>
+// </html>
+
+// `}</pre>
+//     </div>
+//   )
+// }
+
+// {/* {confettiVisible && <div className="confetti">🎉 Confetti! 🎉</div>} 
+          
+//           {badgeEarned && (
+//             <div>
+//               <div className="badge badge-earned" id="JavaScript Carousel Master"></div>
+//               {downloadButtonVisible && (
+//                 <button id="download-button" onClick={handleDownloadBadge}>Download Badge</button>
+//               )}
+//             </div>
+//           )} */}
+//         </section >
+
+//         <div id="prerequisites" className="hidden prerequisites">
+//           <h3>Prerequisites</h3>
+//           <ul>
+//             <li>Understanding of basic HTML and CSS</li>
+//             <li>Familiarity with JavaScript fundamentals</li>
+//             <li>Basic knowledge of DOM manipulation</li>
+//             <li>Understanding of CSS transitions and animations</li>
+//           </ul>
+//         </div>
+
+
+//         <div className="page">
+          // <div className="left">
+          //   <h3>Image Carousel Creation</h3>
+          //   <p>Follow these steps to create an interactive image carousel with navigation controls and smooth transitions.</p>
+
+          //   <h4>Step 1: Set Up HTML Structure</h4>
+          //   <p>
+          //     Create Basic HTML Template:
+          //     <ul>
+          //       <li>Add a container div with class "carousel"</li>
+          //       <li>Create a div with class "carousel-inner" for slides</li>
+          //       <li>Add navigation buttons (previous/next)</li>
+          //       <li>Include indicator dots for slide position</li>
+          //     </ul>
+             
+          //   </p>
+
+          //   <h4>Step 2: Add CSS Styling</h4>
+          //   <p>
+          //     Create Basic Layout:
+          //     <ul>
+          //       <li>Set carousel container to relative positioning</li>
+          //       <li>Hide overflow for slide container</li>
+          //       <li>Style navigation buttons and indicators</li>
+          //       <li>Add CSS transitions for smooth animation</li>
+          //     </ul>
+             
+          //   </p>
+
+          //   <h4>Step 3: Implement JavaScript Logic</h4>
+          //   <p>
+          //     Create Carousel Functionality:
+          //     <ul>
+          //       <li>Initialize current slide index</li>
+          //       <li>Create functions for next/previous navigation</li>
+          //       <li>Add event listeners for buttons</li>
+          //       <li>Implement automatic sliding (optional)</li>
+          //     </ul>
+             
+          //   </p>
+
+          //   <h4>Step 4: Add Indicators and Touch Support</h4>
+          //   <p>
+          //     Enhance User Interaction:
+          //     <ul>
+          //       <li>Create dynamic indicator dots</li>
+          //       <li>Add click handlers for indicators</li>
+          //       <li>Implement touch/swipe detection</li>
+          //       <li>Add keyboard navigation (arrow keys)</li>
+          //     </ul>
+          //   </p>
+
+          //   <h4>Step 5: Test and Refine</h4>
+          //   <p>
+          //     Final Adjustments:
+          //     <ul>
+          //       <li>Test responsiveness on different devices</li>
+          //       <li>Add transition effects (fade/slide)</li>
+          //       <li>Implement infinite looping</li>
+          //       <li>Add accessibility features</li>
+          //     </ul>
+          //   </p>
+          // </div>
+//           <div className="middle">
+//             <ul className="file-tabs">
+//               <li className="active">index.html</li>
+//             </ul>
+//             <textarea
+//               id="codeEditor"
+//               className="code-editor"
+//               value={code}
+//               onChange={(e) => setCode(e.target.value)}
+//             ></textarea>
+//             <button onClick={runCode}>Run Code</button>
+//           </div>
+
+//           <div className="right">
+//             <iframe
+//               ref={iframeRef}
+//               id="outputFrame"
+//               frameBorder="0"
+//               width="100%"
+//               height="100%"
+//             ></iframe>
+//           </div>
+//         </div>
+//       </main >
+//   {/* </div> */ }
+// {
+//   showBadgePopup && (
+//     <div className="badge-popup">
+//       <div className="badge-content">
+//         <h3>🎖️ You've earned a badge!</h3>
+//         <img src={badgeImage} alt="Badge" className="badge-image" />
+//         <button onClick={handleDownloadBadge}>Download Badge</button>
+//       </div>
+//     </div>
+//   )
+// }
+//     </div >
+//   );
+// };
+
+// export default App;
+
 import React, { useState, useEffect, useRef } from 'react';
 import './tasks.css';
 import './carousal.css';
@@ -8,9 +427,7 @@ const App = () => {
   const [progress, setProgress] = useState(0);
   const [downloadButtonVisible, setDownloadButtonVisible] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [taskSolved, setTaskSolved] = useState(false);
-  const [points, setPoints] = useState(() => JSON.parse(localStorage.getItem('points')) || 0);
-  const [level, setLevel] = useState(() => localStorage.getItem('level') || 'Beginner');
+  // const [taskSolved, setTaskSolved] = useState(false);
   const [confettiVisible, setConfettiVisible] = useState(false);
   const [badgeEarned, setBadgeEarned] = useState(false);
   const [showBadgePopup, setShowBadgePopup] = useState(false);
@@ -30,32 +447,38 @@ const App = () => {
   const iframeRef = useRef(null);
   const levels = ['Beginner', 'Intermediate', 'Expert'];
   const pointsPerLevel = 100;
+  
+  const userId = localStorage.getItem('userEmail');
+
+  const getUserData = (key, defaultValue) => {
+    const storedData = JSON.parse(localStorage.getItem(`${userId}_${key}`));
+    return storedData !== null ? storedData : defaultValue;
+  };
+
+  const setUserData = (key, value) => {
+    localStorage.setItem(`${userId}_${key}`, JSON.stringify(value));
+  };
+
+  const [points, setPoints] = useState(() => getUserData('points', 0));
+  const [level, setLevel] = useState(() => getUserData('level', 'Beginner'));
+  const [completedTasks, setCompletedTasks] = useState(() => getUserData('completedTasks', []));
 
   useEffect(() => {
-    const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-    setTaskSolved(completedTasks.includes('ca'));
-  }, []);
+    setUserData('points', points);
+    setUserData('level', level);
+    setUserData('completedTasks', completedTasks);
+    updateProgress(completedTasks.length);
+  }, [points, level, completedTasks]);
 
-  // Load solved task state from localStorage on mount
-  // useEffect(() => {
-  //   const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-  //   setTaskSolved(completedTasks.includes('task-navbar')); // Adjust this ID for each task
-  // }, []);
-
-
-  useEffect(() => {
-    localStorage.setItem('points', points);
-    localStorage.setItem('level', level);
-  }, [points, level]);
-
-  // const btn = document.getElementById('mark-solved-btn');
   const markAsSolved = () => {
-    if (!taskSolved) {
-      setTaskSolved(true);
+    if (!completedTasks.includes('car')) {
+      const updatedTasks = [...completedTasks, 'car'];
+      setCompletedTasks(updatedTasks);
       setPoints(points + 20);
       setBadgeEarned(true);
       setConfettiVisible(true);
-      // setDownloadButtonVisible(true);
+      setTaskSolved(true);
+
       setTimeout(() => {
         setConfettiVisible(false);
         setShowBadgePopup(true);
@@ -64,15 +487,15 @@ const App = () => {
         }, 4000);
       }, 2000);
 
-      // Update localStorage for solved task
-      const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-      completedTasks.push('ca'); // Adjust this ID for each task
-      localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+      setUserData('completedTasks', updatedTasks);
       updateLevel();
+      updateProgress(updatedTasks.length);
     } else {
       alert('Task already solved');
     }
   };
+  const [taskSolved, setTaskSolved] = useState(() => getUserData('completedTasks', []).includes('ca'));
+
 
   const updateLevel = () => {
     if (points % pointsPerLevel === 0 && points !== 0) {
@@ -81,6 +504,12 @@ const App = () => {
         setLevel(levels[currentLevelIndex + 1]);
       }
     }
+  };
+
+  const updateProgress = (completedCount) => {
+    const totalTasks = 5;
+    const newProgress = (completedCount / totalTasks) * 100;
+    setProgress(newProgress);
   };
 
   const handleDownloadBadge = () => {
@@ -100,6 +529,7 @@ const App = () => {
       iframe.contentDocument.close();
     }
   };
+
   return (
     <div>
       <header className="header">
@@ -118,195 +548,24 @@ const App = () => {
           </div>
         </nav>
       </header>
-      {/* <div className={`main-content ${showBadgePopup ? 'blur' : ''}`}> */}
       <main>
         {confettiVisible && <Confetti width={window.innerWidth} height={window.innerHeight} />}
         <section className="user-progress">
           <h3>Progress</h3>
           <div className="progress-bar">
-            <div className="progress-bar-fill" id="progress-bar-fill" style={{ width: `${progress}%` }}></div>
+            <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
           </div>
-          <p>Points: <span id="points">{points}</span> | Level: <span id="level">{level}</span></p>
+          <p>Points: <span>{points}</span> | Level: <span>{level}</span></p>
         </section>
 
         <section className="task-detail">
           <h2>JavaScript Carousel</h2>
           <p>Create a simple image carousel using JavaScript.</p>
-          <div className="task-buttons">
-            <button onClick={markAsSolved} style={{ backgroundColor: taskSolved ? 'green' : '' }}>{taskSolved ? 'Solved!' : 'Mark as Solved'}</button>
-
-            {/* <button id="view-prerequisites-btn" onClick={handleViewPrerequisites}>View Prerequisites</button> */}
-          </div>
-
-
-          {taskSolved && (
-            <div id="solution">
-              <h3>Solution Code</h3>
-              <pre>{`<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Carousel</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f4f4f4;
-    }
-
-    .carousel-container {
-      width: 300px;
-      height: 200px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .carousel-slide {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .carousel-item {
-      min-width: 100%;
-      height: 100%;
-    }
-
-    .carousel-item:nth-child(1) {
-      background-color: #ff6b6b;
-    }
-
-    .carousel-item:nth-child(2) {
-      background-color: #4ecdc4;
-    }
-
-    .carousel-item:nth-child(3) {
-      background-color: #1a535c;
-    }
-
-    .carousel-item:nth-child(4) {
-      background-color: #ffe66d;
-    }
-
-    .carousel-item:nth-child(5) {
-      background-color: #ff9f1c;
-    }
-
-    .nav-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(255, 255, 255, 0.7);
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 50%;
-    }
-
-    .nav-button:hover {
-      background-color: rgba(255, 255, 255, 1);
-    }
-
-    .prev {
-      left: 10px;
-    }
-
-    .next {
-      right: 10px;
-    }
-  </style>
-</head>
-<body>
-  <div class="carousel-container">
-    <div class="carousel-slide">
-      <div class="carousel-item">Slide 1</div>
-      <div class="carousel-item">Slide 2</div>
-      <div class="carousel-item">Slide 3</div>
-      <div class="carousel-item">Slide 4</div>
-      <div class="carousel-item">Slide 5</div>
-    </div>
-    <button class="nav-button prev">&#10094;</button>
-    <button class="nav-button next">&#10095;</button>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const slide = document.querySelector('.carousel-slide');
-      const items = document.querySelectorAll('.carousel-item');
-      const prevButton = document.querySelector('.prev');
-      const nextButton = document.querySelector('.next');
-
-      let currentIndex = 0;
-      const totalSlides = items.length;
-
-      function showSlide(index) {
-        currentIndex = (index + totalSlides) % totalSlides;  // Ensure the index loops correctly
-        slide.style.transform = "translateX(-" + (currentIndex * 100) + "%)";
-      }
-
-                function nextSlide() {
-                  showSlide(currentIndex + 1);
-      }
-
-                function prevSlide() {
-                  showSlide(currentIndex - 1);
-      }
-
-                nextButton.addEventListener('click', nextSlide);
-                prevButton.addEventListener('click', prevSlide);
-
-                // Auto Slide every 3 seconds
-                let autoSlideInterval = setInterval(nextSlide, 3000);
-
-                // Pause auto-slide on hover
-                const carouselContainer = document.querySelector('.carousel-container');
-      carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-      carouselContainer.addEventListener('mouseleave', () => autoSlideInterval = setInterval(nextSlide, 3000));
-    });
-              </script>
-            </body>
-</html>
-
-`}</pre>
-    </div>
-  )
-}
-
-{/* {confettiVisible && <div className="confetti">🎉 Confetti! 🎉</div>} 
-          
-          {badgeEarned && (
-            <div>
-              <div className="badge badge-earned" id="JavaScript Carousel Master"></div>
-              {downloadButtonVisible && (
-                <button id="download-button" onClick={handleDownloadBadge}>Download Badge</button>
-              )}
-            </div>
-          )} */}
-        </section >
-
-        <div id="prerequisites" className="hidden prerequisites">
-          <h3>Prerequisites</h3>
-          <ul>
-            <li>Understanding of basic HTML and CSS</li>
-            <li>Familiarity with JavaScript fundamentals</li>
-            <li>Basic knowledge of DOM manipulation</li>
-            <li>Understanding of CSS transitions and animations</li>
-          </ul>
-        </div>
-
+          <button onClick={markAsSolved} style={{ backgroundColor: taskSolved ? 'green' : '' }}>{taskSolved ? 'Solved!' : 'Mark as Solved'}</button>
+        </section>
 
         <div className="page">
-          <div className="left">
+        <div className="left">
             <h3>Image Carousel Creation</h3>
             <p>Follow these steps to create an interactive image carousel with navigation controls and smooth transitions.</p>
 
@@ -382,29 +641,20 @@ const App = () => {
           </div>
 
           <div className="right">
-            <iframe
-              ref={iframeRef}
-              id="outputFrame"
-              frameBorder="0"
-              width="100%"
-              height="100%"
-            ></iframe>
+            <iframe ref={iframeRef} frameBorder="0" width="100%" height="100%"></iframe>
           </div>
         </div>
-      </main >
-  {/* </div> */ }
-{
-  showBadgePopup && (
-    <div className="badge-popup">
-      <div className="badge-content">
-        <h3>🎖️ You've earned a badge!</h3>
-        <img src={badgeImage} alt="Badge" className="badge-image" />
-        <button onClick={handleDownloadBadge}>Download Badge</button>
-      </div>
+      </main>
+      {showBadgePopup && (
+        <div className="badge-popup">
+          <div className="badge-content">
+            <h3>🎖️ You've earned a badge!</h3>
+            <img src={badgeImage} alt="Badge" className="badge-image" />
+            <button onClick={handleDownloadBadge}>Download Badge</button>
+          </div>
+        </div>
+      )}
     </div>
-  )
-}
-    </div >
   );
 };
 

@@ -1,50 +1,56 @@
+/* Why Choose Us */
 .why-choose-us {
-    background-color: #000; /* Black background */
-    color: #fff; /* White text */
-    text-align: center;
-    padding: 50px 20px;
-  }
-  
-  .why-choose-us h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-  }
-  
-  .subtitle {
-    font-size: 1.2rem;
-    color: #bbb; /* Light gray text for the subtitle */
-    margin-bottom: 40px;
-  }
-  
-  .cards-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .card {
-    background-color: #111; /* Slightly lighter black for cards */
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    text-align: left;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-number {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #ff4d6d; /* Accent color for the number */
-  }
-  
-  .card-title {
-    font-size: 1.3rem;
-    margin: 10px 0;
-  }
-  
-  .card-description {
-    font-size: 1rem;
-    color: #ccc; /* Light gray for description text */
-  }
-  
+  background: linear-gradient(135deg, #000, #1e1e1e);
+  color: #fff;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.why-choose-us h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #bbb;
+  margin-bottom: 40px;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background: #111;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(255, 77, 109, 0.5);
+}
+
+.card-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff4d6d;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  margin: 10px 0;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #ccc;
+}
