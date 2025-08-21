@@ -12,6 +12,8 @@ const storyRoutes = require('./routes/storyRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const Challenge = require('./model/Challenge');
 const Story = require('./model/Story');
+const authMiddleware = require('./middleware/authMiddleware');
+const cookieParser = require("cookie-parser");
 require('./cron/dailyEmail');
 const Team = require('./model/Team');
 const {emailService} = require("./utils/emailService"); // Ensure the correct path
@@ -22,6 +24,7 @@ app.use(cors({
     origin: 'http://localhost:3000', // Replace with your frontend's URL
     credentials: true
 }));
+app.use(cookieParser());
 app.use("/api/teams", teamRoutes);
 app.use('/api/challenges', challengeRoutes);
 // Add this before other routes
@@ -94,7 +97,7 @@ app.listen(process.env.PORT, () => {
 
 //   const Team = require('./model/Team'); // Your Team model
 
-  app.get('/api/teams', async (req, res) => {
+  app.get('/api/teams', authMiddleware,async (req, res) => {
       try {
           const teams = await Team.find();
           res.status(200).json(teams);
@@ -220,9 +223,11 @@ app.post("/logout", (req, res) => {
     }
 });
 
+
 app.get('/user', (req, res) => {
     if (req.session.user) {
         res.json({ user: req.session.user });
+        // console.log(req.cookies);
     } else {
         res.status(401).json("Not authenticated");
     }
